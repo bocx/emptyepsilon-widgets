@@ -1,0 +1,92 @@
+
+<style>
+body {
+  font-family: monospace;
+}
+.counts {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.count {
+  margin: 3vh;
+  padding: 2vh 5vh;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  box-shadow: 3px 3px 5px 6px #ccc;
+}
+.count div:nth-child(1) {
+  font-size: 3vh;
+}
+.count div:nth-child(2) {
+  font-size: 40vh;
+  line-height: 1;
+  overflow: hidden;
+}
+.tubes div {
+  margin: 3vh;
+  padding: 4vh;
+  background: white;
+  box-shadow: 3px 3px 5px 6px #ccc;
+  font-size: 5vh;
+}
+</style>
+
+<div class="counts">
+  <div class="count">
+    <div>Homing</div>
+    <div class="homing"></div>
+  </div>
+  <div class="count">
+    <div>Nukes</div>
+    <div class="nuke"></div>
+  </div>
+  <div class="count">
+    <div>Mines</div>
+    <div class="mine"></div>
+  </div>
+  <div class="count">
+    <div>EMP</div>
+    <div class="emp"></div>
+  </div>
+</div>
+
+<div class="tubes">
+</div>
+
+<script>
+
+const range = (start, end) => [...Array(end - start + 1)].map((_, i) => start + i);
+
+const types = ['homing', 'nuke', 'mine', 'emp'];
+
+const tubeCount = fetch('/get.lua?tubeCount=getWeaponTubeCount()').then(_ => _.json()).then(_ => _.tubeCount);
+
+const tubes = (tubeCount) => {
+  const tubes = range(0, tubeCount - 1);
+
+  const url = '/get.lua?' + tubes.map(tube => `tube${tube}=getWeaponTubeLoadType(${tube})`).join('&');
+  fetch(url).then(response => response.json()).then(data => {
+    document.querySelector('.tubes').innerHTML = tubes.map(tube => {
+      const content = data['tube' + tube] || 'empty';
+      return `<div>Tube ${tube}: ${content}</div>`;
+    }).join('')
+  });
+};
+
+tubeCount.then(tubeCount => {
+  setInterval(() => tubes(tubeCount), 200);
+});
+
+setInterval(() => {
+  const url = '/get.lua?' + types.map(type => `${type}=getWeaponStorage("${type}")`).join('&');
+  fetch(url).then(_ => _.json()).then(data => {
+    types.forEach(type => {
+      document.querySelector('.' + type).innerText = data[type];
+    });
+  });
+}, 200);
+
+</script>

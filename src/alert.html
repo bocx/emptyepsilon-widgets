@@ -1,0 +1,14 @@
+
+<div></div>
+
+<script>
+
+const statusColors = {"Normal": "transparent", "YELLOW ALERT": "yellow", "RED ALERT": "red"};
+
+setInterval(() => {
+  fetch('/get.lua?alertLevel=getAlertLevel()').then(_ => _.json()).then(data => {
+    document.body.style.backgroundColor = statusColors[data.alertLevel];
+  });
+}, 200);
+
+</script>
