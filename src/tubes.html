@@ -81,37 +81,34 @@ body {
 <div class="tubes">
 </div>
 
+
+<script src="emptyepsilon.js"></script>
 <script>
 
 const range = (start, end) => [...Array(end - start + 1)].map((_, i) => start + i);
 
 const types = ['homing', 'nuke', 'mine', 'emp'];
 
-const tubeCount = fetch('/get.lua?tubeCount=getWeaponTubeCount()').then(_ => _.json()).then(_ => _.tubeCount);
-
-const tubes = (tubeCount) => {
-  const tubes = range(0, tubeCount - 1);
-
-  const url = '/get.lua?' + tubes.map(tube => `tube${tube}=getWeaponTubeLoadType(${tube})`).join('&');
-  fetch(url).then(response => response.json()).then(data => {
-    document.querySelector('.tubes').innerHTML = tubes.map(tube => {
-      const content = data['tube' + tube] || 'empty';
-      return `<div>Tube ${tube}: ${content}</div>`;
-    }).join('')
-  });
-};
+const tubeCount = EmptyEpsilon.get({tubeCount: 'getWeaponTubeCount()'}).then(_ => _.tubeCount);
 
 tubeCount.then(tubeCount => {
-  setInterval(() => tubes(tubeCount), 200);
-});
+  const tubes = range(0, tubeCount - 1);
 
-setInterval(() => {
-  const url = '/get.lua?' + types.map(type => `${type}=getWeaponStorage("${type}")`).join('&');
-  fetch(url).then(_ => _.json()).then(data => {
-    types.forEach(type => {
-      document.querySelector('.' + type).innerText = data[type];
+  document.querySelector('.tubes').innerHTML = tubes.map(tube => {
+    return `<div class="tube${tube}">Tube ${tube}: loading</div>`;
+  }).join('');
+
+  tubes.forEach(tube => {
+    EmptyEpsilon.watch(`getWeaponTubeLoadType(${tube})`).onValue(value => {
+      document.querySelector(`.tube${tube}`).innerText = `Tube ${tube}: ${value || 'empty'}`;
     });
   });
-}, 200);
+});
+
+types.forEach(type => {
+  EmptyEpsilon.watch(`getWeaponStorage("${type}")`).onValue(value => {
+    document.querySelector('.' + type).innerText = value;
+  });
+});
 
 </script>
