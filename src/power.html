@@ -1,11 +1,17 @@
 <style>
 
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,900,700);
+@font-face {
+    font-family: 'BebasNeueRegular';
+    src: url('fonts/bebasneue-regular.otf') format('opentype'),
+    url('fonts/bebasneue-regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
 
 * { box-sizing: border-box; }
 
 body {
-    font-family: arial, 'Roboto', monospace;
+    font-family: BebasNeueRegular, arial, monospace;
     background: black;
     font-weight: normal;
     font-size: 16px;
@@ -57,13 +63,12 @@ body {
     background: -webkit-linear-gradient(left,  #e1e1e1 1%,#f7f7f7 50%,#e1e1e1 100%); /* Chrome10-25,Safari5.1-6 */
     background: linear-gradient(to right,  #e1e1e1 1%,#f7f7f7 50%,#e1e1e1 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e1e1e1', endColorstr='#e1e1e1',GradientType=1 ); /* IE6-9 */
-
 }
 
 .power-bar-content div {
     overflow: hidden;
     background-color: gray;
-    height: 5px;
+    height: 3px;
 }
 
 .power-bar-text-container {
@@ -77,6 +82,47 @@ body {
     background-color: black;
     -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
     box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+}
+
+.power-bar-text-container div {
+    float:left;
+    position: relative;
+    width:40px;
+    height: 300px;
+}
+
+.power-bar-text-container:before, .power-bar-text-container:after,
+.power-bar-text-container div:before, .power-bar-text-container div:after
+{
+    content: " ";
+    width: 1px;
+    height: 1px;
+    position: absolute;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    border: 1px solid #e5e5e5;
+    background-color: #fff;
+}
+
+.power-bar-text-container:before {
+    bottom: -1px;
+    left: -2px;;
+}
+
+.power-bar-text-container:after {
+    bottom: -1px;
+    right: -2px;
+}
+
+.power-bar-text-container div:before {
+    top: 0px;
+    left: -2px;;
+}
+
+.power-bar-text-container div:after {
+    top: 0px;
+    right: 0px;
 }
 
 .vertical-text {
@@ -97,53 +143,6 @@ body {
     margin-top: 210px;
 }
 
-hr {
-    transform: rotate(-90deg);
-    border: 0;
-    height: 0px;
-    float: left;
-    clear: both;
-    display: inline-block;
-    width: 300;
-    margin-top: 150px;
-    margin-left: -150px;
-    position: relative;
-}
-
-.second-hr {
-    margin-left: -110px;
-    margin-top: -100px;
-}
-
-hr:before, hr:after {
-    content: " ";
-    width: 1px;
-    height: 1px;
-    position: absolute;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%;
-    border: 1px solid #e5e5e5;
-    background-color: #fff;
-}
-hr:before {
-    left: 0;
-    bottom: -1px;
-}
-hr:after {
-    bottom: -1px;
-    right: 0;
-}
-
-.second-hr:before {
-    left: 0;
-    bottom: 0px;
-}
-.second-hr:after {
-    bottom: 0px;
-    right: 0;
-}
-
 
 </style>
 
@@ -154,9 +153,9 @@ hr:after {
             <div class="power-bar-content" id="Reactor"><div></div></div>
         </div>
         <div class="power-bar-text-container">
-            <hr>
-                <div><p class="vertical-text">REACTOR <span id="Reactor-percentage"></span></p></div>
-            <hr class="second-hr">
+            <div>
+                <p class="vertical-text">REACTOR <span id="Reactor-percentage"></span></p>
+            </div>
         </div>
     </div>
 
@@ -165,9 +164,9 @@ hr:after {
             <div class="power-bar-content" id="BeamWeapons"><div></div></div>
         </div>
         <div class="power-bar-text-container">
-            <hr>
-            <p class="vertical-text">BEAM WEAPONS <span id="BeamWeapons-percentage"></span></p>
-            <hr class="second-hr">
+            <div>
+                <p class="vertical-text">BEAM WEAPONS <span id="BeamWeapons-percentage"></span></p>
+           </div>
         </div>
     </div>
 
@@ -176,9 +175,9 @@ hr:after {
             <div class="power-bar-content" id="MissileSystem"><div></div></div>
         </div>
         <div class="power-bar-text-container">
-            <hr>
-            <p class="vertical-text">MISSILE SYSTEM <span id="MissileSystem-percentage"></span></p>
-            <hr class="second-hr">
+            <div>
+                <p class="vertical-text">MISSILE SYSTEM <span id="MissileSystem-percentage"></span></p>
+            </div>
         </div>
     </div>
 
@@ -187,9 +186,9 @@ hr:after {
             <div class="power-bar-content" id="Maneuver"><div></div></div>
         </div>
         <div class="power-bar-text-container">
-            <hr>
-            <p class="vertical-text">MANEUVERING <span id="Maneuver-percentage"></span></p>
-            <hr class="second-hr">
+            <div>
+                <p class="vertical-text">MANEUVERING <span id="Maneuver-percentage"></span></p>
+            </div>
         </div>
     </div>
 
@@ -198,9 +197,9 @@ hr:after {
             <div class="power-bar-content" id="Impulse"><div></div></div>
         </div>
         <div class="power-bar-text-container">
-            <hr>
-            <p class="vertical-text">IMPULSE ENGINES <span id="Impulse-percentage"></span></p>
-            <hr class="second-hr">
+            <div>
+                <p class="vertical-text">IMPULSE ENGINES <span id="Impulse-percentage"></span></p>
+            </div>
         </div>
     </div>
 
@@ -209,9 +208,9 @@ hr:after {
             <div class="power-bar-content" id="Warp"><div></div></div>
         </div>
         <div class="power-bar-text-container">
-            <hr>
-            <p class="vertical-text">WARP DRIVE <span id="Warp-percentage"></span></p>
-            <hr class="second-hr">
+            <div>
+                <p class="vertical-text">WARP DRIVE <span id="Warp-percentage"></span></p>
+            </div>
         </div>
     </div>
 
@@ -220,9 +219,9 @@ hr:after {
             <div class="power-bar-content" id="JumpDrive"><div></div></div>
         </div>
         <div class="power-bar-text-container">
-            <hr>
-            <p class="vertical-text">JUMP DRIVE <span id="JumpDrive-percentage"></span></p>
-            <hr class="second-hr">
+            <div>
+                <p class="vertical-text">JUMP DRIVE <span id="JumpDrive-percentage"></span></p>
+            </div>
         </div>
     </div>
 
@@ -231,9 +230,9 @@ hr:after {
             <div class="power-bar-content" id="FrontShield"><div></div></div>
         </div>
         <div class="power-bar-text-container">
-            <hr>
-            <p class="vertical-text">FRONT SHIELDS <span id="FrontShield-percentage"></span></p>
-            <hr class="second-hr">
+            <div>
+                <p class="vertical-text">FRONT SHIELDS <span id="FrontShield-percentage"></span></p>
+            </div>
         </div>
     </div>
 
@@ -242,9 +241,9 @@ hr:after {
             <div class="power-bar-content" id="RearShield"><div></div></div>
         </div>
         <div class="power-bar-text-container">
-            <hr>
-            <p class="vertical-text">REAR SHIELDS <span id="RearShield-percentage"></span></p>
-            <hr class="second-hr">
+            <div>
+                <p class="vertical-text">REAR SHIELDS <span id="RearShield-percentage"></span></p>
+            </div>
         </div>
     </div>
 
