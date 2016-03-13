@@ -1,0 +1,275 @@
+<style>
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,900,700);
+
+* { box-sizing: border-box; }
+
+body {
+    font-family: arial, 'Roboto', monospace;
+    background: black;
+    font-weight: normal;
+    font-size: 16px;
+    letter-spacing: 2px;
+    line-height: 1.5rem;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.container {
+    margin: 0px auto;
+}
+
+.power-bar-container {
+    float: left;
+    width: 105px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.power-bar {
+    float: left;
+    width: 40px;
+    height: 300px;
+    border: 1px solid darkgray;
+    border-radius: 20px;
+    background-color: black;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+    overflow: hidden;
+    position: relative;
+}
+
+.power-bar-content {
+    -webkit-box-shadow: inset 0 -1px 0 rgba(0,0,0,.15);
+    box-shadow: inset 0 -1px 0 rgba(0,0,0,.15);
+    bottom: 0;
+    height: 0%;
+    width: 100%;
+    overflow: hidden;
+    position: absolute;
+
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#e1e1e1+1,f7f7f7+50,e1e1e1+100 */
+    background: #e1e1e1; /* Old browsers */
+    background: -moz-linear-gradient(left,  #e1e1e1 1%, #f7f7f7 50%, #e1e1e1 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left,  #e1e1e1 1%,#f7f7f7 50%,#e1e1e1 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right,  #e1e1e1 1%,#f7f7f7 50%,#e1e1e1 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e1e1e1', endColorstr='#e1e1e1',GradientType=1 ); /* IE6-9 */
+
+}
+
+.power-bar-content div {
+    overflow: hidden;
+    background-color: gray;
+    height: 5px;
+}
+
+.power-bar-text-container {
+    float:left;
+    position: relative;
+    width:40px;
+    height: 300px;
+    margin-left: 8px;
+    border-left: 1px solid darkgray;
+    border-right: 1px solid darkgray;
+    background-color: black;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+}
+
+.vertical-text {
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+
+    -webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 50% 50%;
+    -ms-transform-origin: 50% 50%;
+    -o-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+
+    color: white;
+    white-space: nowrap;
+    margin-top: 210px;
+}
+
+hr {
+    transform: rotate(-90deg);
+    border: 0;
+    height: 0px;
+    float: left;
+    clear: both;
+    display: inline-block;
+    width: 300;
+    margin-top: 150px;
+    margin-left: -150px;
+    position: relative;
+}
+
+.second-hr {
+    margin-left: -110px;
+    margin-top: -100px;
+}
+
+hr:before, hr:after {
+    content: " ";
+    width: 1px;
+    height: 1px;
+    position: absolute;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    border: 1px solid #e5e5e5;
+    background-color: #fff;
+}
+hr:before {
+    left: 0;
+    bottom: -1px;
+}
+hr:after {
+    bottom: -1px;
+    right: 0;
+}
+
+.second-hr:before {
+    left: 0;
+    bottom: 0px;
+}
+.second-hr:after {
+    bottom: 0px;
+    right: 0;
+}
+
+
+</style>
+
+<div class="container">
+
+    <div class="power-bar-container">
+        <div class="power-bar">
+            <div class="power-bar-content" id="Reactor"><div></div></div>
+        </div>
+        <div class="power-bar-text-container">
+            <hr>
+                <div><p class="vertical-text">REACTOR <span id="Reactor-percentage"></span></p></div>
+            <hr class="second-hr">
+        </div>
+    </div>
+
+    <div class="power-bar-container">
+        <div class="power-bar">
+            <div class="power-bar-content" id="BeamWeapons"><div></div></div>
+        </div>
+        <div class="power-bar-text-container">
+            <hr>
+            <p class="vertical-text">BEAM WEAPONS <span id="BeamWeapons-percentage"></span></p>
+            <hr class="second-hr">
+        </div>
+    </div>
+
+    <div class="power-bar-container">
+        <div class="power-bar">
+            <div class="power-bar-content" id="MissileSystem"><div></div></div>
+        </div>
+        <div class="power-bar-text-container">
+            <hr>
+            <p class="vertical-text">MISSILE SYSTEM <span id="MissileSystem-percentage"></span></p>
+            <hr class="second-hr">
+        </div>
+    </div>
+
+    <div class="power-bar-container">
+        <div class="power-bar">
+            <div class="power-bar-content" id="Maneuver"><div></div></div>
+        </div>
+        <div class="power-bar-text-container">
+            <hr>
+            <p class="vertical-text">MANEUVERING <span id="Maneuver-percentage"></span></p>
+            <hr class="second-hr">
+        </div>
+    </div>
+
+    <div class="power-bar-container">
+        <div class="power-bar">
+            <div class="power-bar-content" id="Impulse"><div></div></div>
+        </div>
+        <div class="power-bar-text-container">
+            <hr>
+            <p class="vertical-text">IMPULSE ENGINES <span id="Impulse-percentage"></span></p>
+            <hr class="second-hr">
+        </div>
+    </div>
+
+    <div class="power-bar-container">
+        <div class="power-bar">
+            <div class="power-bar-content" id="Warp"><div></div></div>
+        </div>
+        <div class="power-bar-text-container">
+            <hr>
+            <p class="vertical-text">WARP DRIVE <span id="Warp-percentage"></span></p>
+            <hr class="second-hr">
+        </div>
+    </div>
+
+    <div class="power-bar-container">
+        <div class="power-bar">
+            <div class="power-bar-content" id="JumpDrive"><div></div></div>
+        </div>
+        <div class="power-bar-text-container">
+            <hr>
+            <p class="vertical-text">JUMP DRIVE <span id="JumpDrive-percentage"></span></p>
+            <hr class="second-hr">
+        </div>
+    </div>
+
+    <div class="power-bar-container">
+        <div class="power-bar">
+            <div class="power-bar-content" id="FrontShield"><div></div></div>
+        </div>
+        <div class="power-bar-text-container">
+            <hr>
+            <p class="vertical-text">FRONT SHIELDS <span id="FrontShield-percentage"></span></p>
+            <hr class="second-hr">
+        </div>
+    </div>
+
+    <div class="power-bar-container">
+        <div class="power-bar">
+            <div class="power-bar-content" id="RearShield"><div></div></div>
+        </div>
+        <div class="power-bar-text-container">
+            <hr>
+            <p class="vertical-text">REAR SHIELDS <span id="RearShield-percentage"></span></p>
+            <hr class="second-hr">
+        </div>
+    </div>
+
+</div>
+
+<script src="emptyepsilon.js"></script>
+<script>
+    const types = [
+        'Reactor',
+        'BeamWeapons',
+        'MissileSystem',
+        'Maneuver',
+        'Impulse',
+        'Warp',
+        'JumpDrive',
+        'FrontShield',
+        'RearShield'
+    ];
+
+    types.forEach(type => {
+        EmptyEpsilon.watch(`getSystemPower("${type}")`).onValue(value => {
+            document.getElementById(type).style.height = (((value / 3) * 100 ))+ '%';
+            document.getElementById(type + '-percentage').innerHTML = Math.round(((value / 3) * 100 ))+ '%';
+        });
+    });
+
+</script>
+
