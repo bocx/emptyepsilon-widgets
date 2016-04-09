@@ -1,29 +1,25 @@
 (() => {
     const watchers = {};
 
+    function constructUrl(url, params) {
+        return url +
+            Object.keys(params).map(key =>
+                encodeURIComponent(key) + '=' + encodeURIComponent(params[key])
+            ).join('&');
+    }
+
     window.EmptyEpsilon = {
         get: params =>
-            fetch(
-                '/get.lua?' + 
-                Object.keys(params).map(key =>
-                    encodeURIComponent(key) + '=' + encodeURIComponent(params[key])
-                ).join('&')
-            )
+            fetch(constructUrl('/get.lua?', params))
             .then(_ => _.json()),
 
         set: params =>
-            fetch(
-                '/set.lua?' + 
-                Object.keys(params).map(key =>
-                    encodeURIComponent(key) + '=' + encodeURIComponent(params[key])
-                ).join('&')
-            )
+            fetch(constructUrl('/set.lua?', params))
             .then(_ => _.json()),
 
         exec: body =>
             fetch('/exec.lua', {method: 'POST', body})
             .then(_ => _.json()),
-
 
         watch: expression => ({
             onValue: callback => {
